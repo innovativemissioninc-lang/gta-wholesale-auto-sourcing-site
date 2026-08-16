@@ -259,313 +259,648 @@
   </section>
 
   <!-- ================= CALCULATOR ================= -->
-  <section class="section" id="calculator">
-    <div class="container">
-<div class="wholesale-calculator-container">
-  <div class="calc-top-header">
-    <span class="tag-pill">RADICAL TRANSPARENCY</span>
-    <h2>True Cost Breakdown: Wholesale Proxy vs. Traditional Dealership</h2>
-    <p>See exactly what you pay for on every line item&mdash;no hidden markups, no forced accessories.</p>
-  </div>
-
-  <div class="calc-control-panel">
-    <div class="slider-wrapper">
-      <div class="slider-labels">
-        <span>Wholesale Auction Target:</span>
-        <strong id="displayHammer">$17,500 CAD</strong>
-      </div>
-      <input type="range" id="inputHammer" min="10000" max="60000" step="500" value="17500">
-      <div class="slider-range-indicators">
-        <span>$10,000</span>
-        <span>$35,000</span>
-        <span>$60,000</span>
-      </div>
+  <div class="sourcing-module-wrapper" id="calculator">
+  
+  <!-- Comparative Transparency Calculator -->
+  <div class="calc-box">
+    <div class="calc-title-area">
+      <span class="pill-tag">RADICAL TRANSPARENCY</span>
+      <h2>Detailed Cost Breakdown: Wholesale Proxy vs. Retail Dealer</h2>
+      <p class="brand-tagline">"Your Trust. Our Transparency. Our #1 Priority."</p>
     </div>
 
-    <div class="toggle-grid">
-      <div class="toggle-card">
-        <label>Payment Structure</label>
-        <div class="switch-group">
-          <button type="button" class="sw-btn active" id="btnCash" onclick="updatePaymentMode('cash')">Cash Purchase</button>
-          <button type="button" class="sw-btn" id="btnFinance" onclick="updatePaymentMode('finance')">Prime Finance (60 Mo)</button>
+    <!-- Sliders & Toggles -->
+    <div class="calc-inputs-panel">
+      <div class="range-wrap">
+        <div class="range-header">
+          <span>Target Wholesale Auction Hammer Price:</span>
+          <strong id="displaySliderVal">$18,000 CAD</strong>
+        </div>
+        <input type="range" id="auctionHammerSlider" min="10000" max="60000" step="500" value="18000">
+        <div class="range-sublabels">
+          <span>$10,000</span>
+          <span>$35,000</span>
+          <span>$60,000</span>
         </div>
       </div>
-      <div class="toggle-card">
-        <label>2-Year Extended Comprehensive Warranty</label>
-        <div class="switch-group">
-          <button type="button" class="sw-btn active" id="btnWarrNo" onclick="updateWarrantyMode(false)">No Warranty</button>
-          <button type="button" class="sw-btn" id="btnWarrYes" onclick="updateWarrantyMode(true)">Add 2-Yr Warranty</button>
+
+      <div class="toggles-flex">
+        <div class="toggle-unit">
+          <label>Payment Method</label>
+          <div class="segmented-btn">
+            <button type="button" class="seg-btn active" id="btnModeCash" onclick="setCalcPayMode('cash')">Cash Purchase</button>
+            <button type="button" class="seg-btn" id="btnModeFinance" onclick="setCalcPayMode('finance')">Prime Finance (60 Mo)</button>
+          </div>
+        </div>
+        <div class="toggle-unit">
+          <label>2-Year Comprehensive Warranty</label>
+          <div class="segmented-btn">
+            <button type="button" class="seg-btn active" id="btnCalcWarrNo" onclick="setCalcWarranty(false)">No Warranty</button>
+            <button type="button" class="seg-btn" id="btnCalcWarrYes" onclick="setCalcWarranty(true)">Add 2-Yr Warranty</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Itemized Comparison Table -->
+    <div class="table-scroll">
+      <table class="itemized-table">
+        <thead>
+          <tr>
+            <th class="th-desc">Fee / Expense Breakdown</th>
+            <th class="th-retail">Traditional Retail Dealer</th>
+            <th class="th-proxy">GTA Wholesale Proxy Model</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grp-header"><td colspan="3">1. Vehicle Acquisition & Logistics</td></tr>
+          <tr>
+            <td>Base Vehicle Price</td>
+            <td class="text-retail" id="retailBaseDisplay">$22,626.00</td>
+            <td class="text-proxy" id="proxyBaseDisplay">$18,000.00 <span class="dim-tag">(Auction Bid)</span></td>
+          </tr>
+          <tr>
+            <td>Auction Buyer & Yard Gate Fee</td>
+            <td class="dim-note">Hidden in Retail Price</td>
+            <td class="text-proxy">+$485.00 <span class="dim-tag">(Pass-Through)</span></td>
+          </tr>
+          <tr>
+            <td>PSI Mechanical Arbitration Guarantee</td>
+            <td class="dim-note">Not Disclosed</td>
+            <td class="text-proxy">+$175.00 <span class="dim-tag">(Wholesale Shield)</span></td>
+          </tr>
+          <tr>
+            <td>Dedicated Flatbed Transport to Hub</td>
+            <td class="dim-note">Hidden in Retail Price</td>
+            <td class="text-proxy">+$300.00 <span class="dim-tag">(Pass-Through)</span></td>
+          </tr>
+
+          <tr class="grp-header"><td colspan="3">2. Safety Inspection & Mechanical Parts</td></tr>
+          <tr>
+            <td>DriveON Safety Certification</td>
+            <td class="text-retail">+$995.00 <span class="alert-txt">(Billed "As-Is")</span></td>
+            <td class="text-proxy">+$160.00 <span class="dim-tag">(Shop Rate)</span></td>
+          </tr>
+          <tr>
+            <td>
+              Safety Parts & Mechanical Wear Items
+              <small class="inline-help">Average cost ~$500 (e.g., brake pads/rotors). $0 if turnkey; adjusts based on DriveON hoist check.</small>
+            </td>
+            <td class="dim-note">Hidden in Retail Markup</td>
+            <td class="text-proxy">+$500.00 <span class="dim-tag">(Average Estimate)</span></td>
+          </tr>
+
+          <tr class="grp-header"><td colspan="3">3. Dealership Profit vs. Fixed Sourcing Fee</td></tr>
+          <tr>
+            <td>Dealer Administration & Documentation Fee</td>
+            <td class="text-retail">+$799.00</td>
+            <td class="text-green">$0.00 <span class="dim-tag">(Eliminated)</span></td>
+          </tr>
+          <tr>
+            <td>Mandatory Anti-Theft / Security Glass Etch</td>
+            <td class="text-retail">+$499.00</td>
+            <td class="text-green">$0.00 <span class="dim-tag">(Eliminated)</span></td>
+          </tr>
+          <tr>
+            <td>Flat Sourcing Service Fee</td>
+            <td class="dim-note">$0.00</td>
+            <td class="text-proxy bold-txt">+$1,500.00 <span class="dim-tag">(Fixed Sourcing Fee)</span></td>
+          </tr>
+
+          <tr class="grp-header" id="groupFinanceWarr"><td colspan="3">4. Financing Surcharges & Warranty Protection</td></tr>
+          <tr id="rowDealerFinanceSurcharge" style="display:none;">
+            <td>Dealer Finance Placement Fee</td>
+            <td class="text-retail">+$895.00</td>
+            <td class="text-green">$0.00 <span class="dim-tag">(Eliminated)</span></td>
+          </tr>
+          <tr id="rowWarrantyComparison" style="display:none;">
+            <td>2-Year Extended Comprehensive Warranty</td>
+            <td class="text-retail">+$2,850.00 <span class="alert-txt">(Retail Markup)</span></td>
+            <td class="text-proxy">+$1,250.00 <span class="dim-tag">(Wholesale Pass)</span></td>
+          </tr>
+          <tr id="rowPpsaComparison" style="display:none;">
+            <td>PPSA Bank Lien Registration (60 Months)</td>
+            <td class="text-retail">+$84.25</td>
+            <td class="text-proxy">+$84.25 <span class="dim-tag">(Pass-Through)</span></td>
+          </tr>
+
+          <tr class="grp-header"><td colspan="3">5. Regulatory Levies, HST & Licensing</td></tr>
+          <tr>
+            <td>OMVIC Regulatory Transaction Fee</td>
+            <td class="text-retail">+$22.00</td>
+            <td class="text-proxy">+$22.00 <span class="dim-tag">(Pass-Through)</span></td>
+          </tr>
+          <tr>
+            <td>Ontario HST (13%)</td>
+            <td class="text-retail" id="retailTaxDisplay">$3,242.46</td>
+            <td class="text-proxy" id="proxyTaxDisplay">$2,735.46</td>
+          </tr>
+          <tr>
+            <td>ServiceOntario Registration & Plate Transfer</td>
+            <td class="text-retail">+$59.00</td>
+            <td class="text-proxy">+$59.00 <span class="dim-tag">(Pass-Through)</span></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="tr-grand-total">
+            <td>Total Drive-Away Investment</td>
+            <td class="retail-sum" id="retailTotalDisplay">$28,247.46</td>
+            <td class="proxy-sum" id="proxyTotalDisplay">$23,836.46</td>
+          </tr>
+          <tr class="tr-monthly-sum" id="rowMonthlyComparison" style="display:none;">
+            <td>Estimated 60-Month Payment</td>
+            <td class="retail-mo" id="retailMonthlyDisplay">$588.56 / mo <small>(9.20% APR)</small></td>
+            <td class="proxy-mo" id="proxyMonthlyDisplay">$474.40 / mo <small>(7.20% APR)</small></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Savings Banner -->
+    <div class="savings-footer">
+      <div class="sav-details">
+        <span>TOTAL ESTIMATED SAVINGS</span>
+        <h3 id="savingsTotalDisplay">$4,411.00 CAD</h3>
+        <p id="savingsDescDisplay">Direct cash savings on your purchase by eliminating retail markups.</p>
+      </div>
+      <a href="#request" class="jump-btn">Start Sourcing Order</a>
+    </div>
+  </div>
+
+  <!-- Multi-Step Order & Intake Portal -->
+  <div class="portal-box" id="request">
+    <div class="portal-title-area">
+      <span class="pill-tag">ORDER CONFIGURATION</span>
+      <h2>Submit Your Vehicle Sourcing Request</h2>
+      <p>Configure your target specs and watch your live open-book estimate build in real time.</p>
+    </div>
+
+    <div class="portal-split">
+      <!-- Intake Form -->
+      <form class="portal-form" onsubmit="handlePortalOrderSubmit(event)">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-lbl"><span>1</span> Target Vehicle & Budget</div>
+          <div class="fields-grid-2">
+            <div class="field">
+              <label>Year Range</label>
+              <input type="text" id="orderYear" placeholder="e.g. 2021 - 2024" required>
+            </div>
+            <div class="field">
+              <label>Make, Model & Trim</label>
+              <input type="text" id="orderModel" placeholder="e.g. Toyota RAV4 XLE / Ford Transit" required>
+            </div>
+          </div>
+          <div class="fields-grid-2">
+            <div class="field">
+              <label>Maximum Mileage (km)</label>
+              <input type="text" id="orderKm" placeholder="e.g. Under 75,000 km">
+            </div>
+            <div class="field">
+              <label>Wholesale Hammer Target ($ CAD)</label>
+              <input type="number" id="orderHammerInput" value="18000" min="5000" max="100000" step="500" oninput="syncPortalOrder()" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-lbl"><span>2</span> Choose Sourcing Tier</div>
+          <div class="tier-opt-list">
+            <label class="tier-opt active" onclick="selectOrderTier(1500, 'Tier 1: Core Sourcing', this)">
+              <input type="radio" name="orderTier" value="1500" checked>
+              <div class="tier-txt">
+                <strong>Core Passenger Sourcing ($1,500 CAD)</strong>
+                <p>Sedans, Hatchbacks, Compact/Mid SUVs ($15k–$35k). Live proxy bidding, PSI warranty & DriveON safety coordination.</p>
+              </div>
+            </label>
+
+            <label class="tier-opt" onclick="selectOrderTier(2200, 'Tier 2: Work Van & HD Truck', this)">
+              <input type="radio" name="orderTier" value="2200">
+              <div class="tier-txt">
+                <strong>Commercial Van & HD Truck Sourcing ($2,200 CAD)</strong>
+                <p>Cargo vans (Transit/ProMaster) & 2500/3500 HD diesel pickups. Suspension checks & fleet upfit coordination.</p>
+              </div>
+            </label>
+
+            <label class="tier-opt" onclick="selectOrderTier(2995, 'Tier 3: White Glove Handover', this)">
+              <input type="radio" name="orderTier" value="2995">
+              <div class="tier-txt">
+                <strong>White Glove Turnkey Handover ($2,995 CAD)</strong>
+                <p>Premium SUVs & Executive sourcing. Includes 2-stage paint correction, baseline 6-mo warranty & flatbed home delivery.</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-lbl"><span>3</span> Payment Structure & Add-Ons</div>
+          <label class="sub-lbl">Payment Method</label>
+          <div class="segmented-btn">
+            <button type="button" class="seg-btn active" id="btnOrderPayCash" onclick="setOrderPayType('cash')">Cash / Bank Draft</button>
+            <button type="button" class="seg-btn" id="btnOrderPayFinance" onclick="setOrderPayType('finance')">Prime Finance (60 Mo @ 7.20%)</button>
+          </div>
+
+          <label class="sub-lbl" style="margin-top: 14px;">Optional Pass-Through Upgrades</label>
+          <div class="addon-stack">
+            <label class="addon-item">
+              <input type="checkbox" id="orderOptWarranty" value="1250" onchange="syncPortalOrder()" checked>
+              <div class="addon-desc">
+                <strong>2-Year Extended Comprehensive Warranty (Wholesale Pass-Through)</strong>
+                <span>Direct wholesale rate (Retail: $2,850+). Zero dealer markup.</span>
+              </div>
+              <span class="addon-prc">+$1,250</span>
+            </label>
+
+            <label class="addon-item">
+              <input type="checkbox" id="orderOptDelivery" value="150" onchange="syncPortalOrder()">
+              <div class="addon-desc">
+                <strong>Driveway Flatbed Delivery (GTHA)</strong>
+                <span>Transported directly from Etobicoke hub to your driveway.</span>
+              </div>
+              <span class="addon-prc">+$150</span>
+            </label>
+
+            <label class="addon-item">
+              <input type="checkbox" id="orderOptDetail" value="350" onchange="syncPortalOrder()">
+              <div class="addon-desc">
+                <strong>Interior/Exterior Detail & Ceramic Sealant</strong>
+                <span>Wholesale shop rate reconditioning package.</span>
+              </div>
+              <span class="addon-prc">+$350</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card">
+          <div class="step-lbl"><span>4</span> Contact & Sourcing Confirmation</div>
+          <div class="fields-grid-2">
+            <div class="field">
+              <label>Full Legal Name</label>
+              <input type="text" id="clientName" placeholder="First and Last Name" required>
+            </div>
+            <div class="field">
+              <label>Phone / WhatsApp</label>
+              <input type="tel" id="clientPhone" placeholder="(416) 000-0000" required>
+            </div>
+          </div>
+          <div class="fields-grid-2">
+            <div class="field">
+              <label>Email Address</label>
+              <input type="email" id="clientEmail" placeholder="yourname@domain.com" required>
+            </div>
+            <div class="field">
+              <label>City / Municipality</label>
+              <input type="text" id="clientCity" placeholder="e.g. Mississauga / Etobicoke" required>
+            </div>
+          </div>
+          <button type="submit" class="submit-action-btn">Submit Wholesale Sourcing Request</button>
+          <p class="terms-note">Licensed OMVIC Dealer Proxy. No deposit is charged until you approve a specific verified auction run.</p>
+        </div>
+      </form>
+
+      <!-- Live Estimate Receipt -->
+      <div class="receipt-pane">
+        <div class="receipt-card">
+          <div class="receipt-head">
+            <h3>Live Open-Book Estimate</h3>
+            <span class="hub-pill">Etobicoke Hub</span>
+          </div>
+
+          <div class="rcpt-row"><span>Target Hammer Bid:</span><strong id="rcptHammer">$18,000.00</strong></div>
+          <div class="rcpt-row"><span>Auction Buyer & Gate Fee:</span><span>+$485.00</span></div>
+          <div class="rcpt-row"><span>Post-Sale Inspection (PSI):</span><span>+$175.00</span></div>
+          <div class="rcpt-row"><span>Transport to Etobicoke Hub:</span><span>+$300.00</span></div>
+          <div class="rcpt-row"><span>DriveON Safety Inspection:</span><span>+$160.00</span></div>
+          <div class="rcpt-row"><span>Safety Parts (Avg. Estimate):</span><span>+$500.00</span></div>
+          <div class="rcpt-row"><span>OMVIC Regulatory Fee:</span><span>+$22.00</span></div>
+          <div class="rcpt-row highlight"><span id="rcptTierLabel">Tier 1: Core Sourcing Fee:</span><strong id="rcptTierFee">+$1,500.00</strong></div>
+
+          <div class="rcpt-row" id="rcptRowWarranty"><span>2-Yr Wholesale Warranty:</span><strong>+$1,250.00</strong></div>
+          <div class="rcpt-row" id="rcptRowDelivery" style="display:none;"><span>Driveway Flatbed Delivery:</span><strong>+$150.00</strong></div>
+          <div class="rcpt-row" id="rcptRowDetail" style="display:none;"><span>Detailing & Ceramic Seal:</span><strong>+$350.00</strong></div>
+          <div class="rcpt-row" id="rcptRowPpsa" style="display:none;"><span>PPSA Lien Registration:</span><strong>+$84.25</strong></div>
+
+          <div class="rcpt-row"><span>Ontario HST (13%):</span><strong id="rcptTax">$2,898.02</strong></div>
+          <div class="rcpt-row"><span>ServiceOntario Licensing:</span><span>+$59.00</span></div>
+
+          <div class="rcpt-div"></div>
+
+          <div class="rcpt-grand">
+            <span>Total All-In Drive-Away:</span>
+            <h2 id="rcptTotal">$25,303.27 CAD</h2>
+          </div>
+
+          <div class="fin-banner" id="rcptFinanceBanner" style="display:none;">
+            <span class="fin-tag">ESTIMATED PRIME MONTHLY PAYMENT (60 MO @ 7.20% APR):</span>
+            <h4 id="rcptMonthlyDisplay">$503.57 / month</h4>
+          </div>
+
+          <div class="sav-box">
+            <span class="sav-tag">ESTIMATED RETAIL DEALER SAVINGS</span>
+            <h4 id="rcptSavingsDisplay">$4,850.00 CAD</h4>
+            <p>Zero admin charges. Zero safety markups. Wholesale pass-through warranty.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="breakdown-wrapper">
-    <table class="cost-table">
-      <thead>
-        <tr>
-          <th class="col-item">Itemized Fee / Service</th>
-          <th class="col-dealer">Traditional GTA Dealer</th>
-          <th class="col-proxy">GTA Wholesale Sourcing</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="section-heading"><td colspan="3">1. Vehicle Acquisition &amp; Logistics</td></tr>
-        <tr>
-          <td>Base Vehicle Price</td>
-          <td class="dealer-text" id="dealBasePrice">$21,995.00</td>
-          <td class="proxy-text" id="proxyBasePrice">$17,500.00 <span class="note">(Hammer Bid)</span></td>
-        </tr>
-        <tr>
-          <td>Auction Buyer &amp; Gate Fee</td>
-          <td class="included-text">Included in Retail Sticker</td>
-          <td class="proxy-text">+$485.00 <span class="note">(Pass-Through)</span></td>
-        </tr>
-        <tr>
-          <td>Post-Sale Inspection Guarantee (PSI)</td>
-          <td class="na-text">Not Disclosed</td>
-          <td class="proxy-text">+$175.00 <span class="note">(Wholesale Shield)</span></td>
-        </tr>
-        <tr>
-          <td>Dedicated Flatbed Hub Transport</td>
-          <td class="included-text">Included in Retail Sticker</td>
-          <td class="proxy-text">+$300.00 <span class="note">(Pass-Through)</span></td>
-        </tr>
-
-        <tr class="section-heading"><td colspan="3">2. Safety &amp; Mechanical Reconditioning</td></tr>
-        <tr>
-          <td>DriveON Safety Certification</td>
-          <td class="dealer-text">+$899.00 <span class="alert">(Billed "As-Is" in Ad)</span></td>
-          <td class="proxy-text">+$160.00 <span class="note">(Shop Rate)</span></td>
-        </tr>
-        <tr>
-          <td>Safety Parts &amp; Mechanical Wear Items (e.g. Brakes)</td>
-          <td class="included-text">Included in Retail Markup</td>
-          <td class="proxy-text">+$400.00 <span class="note">(Wholesale Parts/Labor)</span></td>
-        </tr>
-
-        <tr class="section-heading"><td colspan="3">3. Service Fees vs. Dealership Profit</td></tr>
-        <tr>
-          <td>Dealer Documentation / Admin Fee</td>
-          <td class="dealer-text">+$799.00</td>
-          <td class="proxy-zero">$0.00 <span class="note">(Eliminated)</span></td>
-        </tr>
-        <tr>
-          <td>Pre-Installed Anti-Theft / Security Etching</td>
-          <td class="dealer-text">+$499.00</td>
-          <td class="proxy-zero">$0.00 <span class="note">(Eliminated)</span></td>
-        </tr>
-        <tr>
-          <td>Direct Dealership Flat Sourcing Fee</td>
-          <td class="dealer-text">$0.00</td>
-          <td class="proxy-text font-bold">+$1,500.00 <span class="note">(Fixed Service Fee)</span></td>
-        </tr>
-
-        <tr class="section-heading" id="rowHeadingFinanceWarr"><td colspan="3">4. Financing Surcharges &amp; Warranty Options</td></tr>
-        <tr id="rowDealerFinanceFee" style="display:none;">
-          <td>Dealer Finance Origination Fee</td>
-          <td class="dealer-text">+$895.00</td>
-          <td class="proxy-zero">$0.00 <span class="note">(Eliminated)</span></td>
-        </tr>
-        <tr id="rowWarrantyFee" style="display:none;">
-          <td>2-Year Extended Comprehensive Warranty</td>
-          <td class="dealer-text">+$2,850.00 <span class="alert">(Retail Markup)</span></td>
-          <td class="proxy-text">+$1,250.00 <span class="note">(Wholesale Direct)</span></td>
-        </tr>
-        <tr id="rowPpsaFee" style="display:none;">
-          <td>PPSA Bank Lien Registration (60 Months)</td>
-          <td class="dealer-text">+$84.25</td>
-          <td class="proxy-text">+$84.25 <span class="note">(Pass-Through)</span></td>
-        </tr>
-
-        <tr class="section-heading"><td colspan="3">5. Taxes &amp; ServiceOntario Licensing</td></tr>
-        <tr>
-          <td>Ontario HST (13%)</td>
-          <td class="dealer-text" id="dealTax">$3,204.05</td>
-          <td class="proxy-text" id="proxyTax">$2,667.60</td>
-        </tr>
-        <tr>
-          <td>ServiceOntario Registration &amp; Plate Transfer</td>
-          <td class="dealer-text">+$59.00</td>
-          <td class="proxy-text">+$59.00</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr class="total-row">
-          <td>Total Drive-Away Investment</td>
-          <td class="dealer-total" id="dealTotal">$27,396.05</td>
-          <td class="proxy-total" id="proxyTotal">$23,246.60</td>
-        </tr>
-        <tr class="monthly-row" id="rowMonthlyComparison" style="display:none;">
-          <td>Estimated 60-Month Payment</td>
-          <td class="dealer-monthly" id="dealMonthly">$570.82 / mo <span class="apr-note">(9.20% APR)</span></td>
-          <td class="proxy-monthly" id="proxyMonthly">$462.67 / mo <span class="apr-note">(7.20% APR)</span></td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-
-  <div class="savings-callout-card">
-    <div class="savings-info">
-      <span class="savings-label">YOUR ESTIMATED NET SAVINGS</span>
-      <h3 id="savingsSummaryDisplay">$4,149.45 CAD</h3>
-      <p id="savingsContextDisplay">Direct cash savings on your purchase by eliminating retail markups.</p>
-    </div>
-    <a href="#request" class="cta-action-btn">Source This Vehicle at Wholesale</a>
-  </div>
 </div>
+
 <style>
-  .wholesale-calculator-container { max-width: 920px; margin: 30px auto; background: #ffffff; border-radius: 14px; border: 1px solid #e2e8f0; padding: 28px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; box-shadow: 0 10px 30px rgba(11,27,61,0.06); }
-  .calc-top-header { text-align: center; margin-bottom: 24px; }
-  .tag-pill { background: #e0f2fe; color: #0284c7; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
-  .calc-top-header h2 { font-size: 24px; color: #0b1b3d; margin: 10px 0 6px 0; font-weight: 800; }
-  .calc-top-header p { font-size: 14px; color: #64748b; margin: 0; }
+  .sourcing-module-wrapper { max-width: 1080px; margin: 20px auto; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #0f172a; }
+  .calc-box, .portal-box { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 28px; margin-bottom: 30px; box-shadow: 0 8px 24px rgba(11,27,61,0.05); }
+  
+  .calc-title-area, .portal-title-area { text-align: center; margin-bottom: 24px; }
+  .pill-tag { background: #e0f2fe; color: #0284c7; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; }
+  .calc-title-area h2, .portal-title-area h2 { font-size: 24px; color: #0b1b3d; margin: 8px 0 4px 0; font-weight: 800; }
+  .brand-tagline { font-size: 14px; font-weight: 700; color: #c5a059; margin: 0; }
+  .portal-title-area p { font-size: 14px; color: #64748b; margin: 0; }
 
-  .calc-control-panel { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin-bottom: 24px; }
-  .slider-wrapper { margin-bottom: 20px; }
-  .slider-labels { display: flex; justify-content: space-between; font-size: 15px; color: #334155; margin-bottom: 8px; }
-  .slider-labels strong { color: #0b1b3d; font-size: 20px; font-weight: 800; }
-  .slider-wrapper input[type="range"] { width: 100%; height: 8px; border-radius: 4px; background: #cbd5e1; outline: none; -webkit-appearance: none; }
-  .slider-wrapper input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #c5a059; cursor: pointer; border: 2px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-  .slider-range-indicators { display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; margin-top: 4px; }
+  .calc-inputs-panel { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-bottom: 22px; }
+  .range-wrap { margin-bottom: 16px; }
+  .range-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 14px; }
+  .range-header strong { font-size: 20px; color: #0b1b3d; }
+  .range-wrap input[type="range"] { width: 100%; height: 8px; border-radius: 4px; background: #cbd5e1; outline: none; -webkit-appearance: none; }
+  .range-wrap input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #c5a059; cursor: pointer; border: 2px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+  .range-sublabels { display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; margin-top: 4px; }
 
-  .toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .toggle-card label { display: block; font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 6px; }
-  .switch-group { display: flex; background: #e2e8f0; border-radius: 6px; padding: 3px; }
-  .sw-btn { flex: 1; border: none; background: transparent; padding: 8px 10px; font-size: 12px; font-weight: 700; cursor: pointer; border-radius: 5px; color: #475569; transition: all 0.2s; }
-  .sw-btn.active { background: #0b1b3d; color: #ffffff; }
+  .toggles-flex { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .toggle-unit label, .sub-lbl { display: block; font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 6px; }
+  .segmented-btn { display: flex; background: #e2e8f0; border-radius: 6px; padding: 3px; gap: 4px; }
+  .seg-btn { flex: 1; border: none; background: transparent; padding: 8px 10px; font-size: 12px; font-weight: 700; cursor: pointer; border-radius: 5px; color: #475569; transition: all 0.2s; }
+  .seg-btn.active { background: #0b1b3d; color: #ffffff; }
 
-  .breakdown-wrapper { overflow-x: auto; margin-bottom: 24px; }
-  .cost-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
-  .cost-table th { padding: 12px 14px; font-size: 13px; font-weight: 700; text-transform: uppercase; }
-  .col-item { width: 44%; background: #f1f5f9; color: #334155; }
-  .col-dealer { width: 28%; background: #fee2e2; color: #991b1b; }
-  .col-proxy { width: 28%; background: #dbeafe; color: #1e40af; }
+  .table-scroll { overflow-x: auto; margin-bottom: 20px; }
+  .itemized-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .itemized-table th { padding: 12px 14px; text-align: left; font-size: 12px; font-weight: 800; text-transform: uppercase; }
+  .th-desc { width: 44%; background: #f1f5f9; color: #334155; }
+  .th-retail { width: 28%; background: #fee2e2; color: #991b1b; }
+  .th-proxy { width: 28%; background: #dbeafe; color: #1e40af; }
 
-  .cost-table td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; color: #334155; }
-  .section-heading td { background: #f8fafc; font-weight: 800; font-size: 12px; color: #0b1b3d; text-transform: uppercase; letter-spacing: 0.05em; padding: 10px 14px; border-top: 2px solid #e2e8f0; }
+  .itemized-table td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; }
+  .grp-header td { background: #f8fafc; font-weight: 800; font-size: 11px; color: #0b1b3d; text-transform: uppercase; padding: 8px 14px; border-top: 2px solid #e2e8f0; }
+  .inline-help { display: block; font-size: 11px; color: #64748b; margin-top: 2px; font-style: normal; }
+  
+  .text-retail { color: #991b1b; font-weight: 600; }
+  .text-proxy { color: #1e40af; font-weight: 600; }
+  .text-green { color: #10b981; font-weight: 700; }
+  .dim-note { color: #94a3b8; font-style: italic; }
+  .dim-tag { font-size: 11px; color: #64748b; font-weight: 400; }
+  .alert-txt { font-size: 10px; color: #dc2626; font-weight: 800; }
+  .bold-txt { font-weight: 800; }
 
-  .dealer-text { font-weight: 600; color: #991b1b; }
-  .proxy-text { font-weight: 600; color: #1e40af; }
-  .proxy-zero { font-weight: 600; color: #10b981; }
-  .included-text { color: #64748b; font-style: italic; font-size: 12px; }
-  .na-text { color: #94a3b8; }
-  .alert { color: #dc2626; font-size: 11px; font-weight: 700; }
-  .note { color: #64748b; font-size: 11px; font-weight: 400; }
-  .font-bold { font-weight: 800; }
+  .itemized-table tfoot td { padding: 14px; border-top: 2px solid #cbd5e1; }
+  .tr-grand-total td { font-size: 15px; font-weight: 800; }
+  .retail-sum { color: #991b1b; font-size: 17px; }
+  .proxy-sum { color: #1e40af; font-size: 18px; }
+  .tr-monthly-sum td { font-size: 13px; font-weight: 800; background: #fafafa; }
+  .retail-mo { color: #b91c1c; }
+  .proxy-mo { color: #0369a1; }
 
-  .cost-table tfoot td { padding: 14px; border-top: 2px solid #cbd5e1; }
-  .total-row td { font-size: 15px; font-weight: 800; }
-  .dealer-total { color: #991b1b; font-size: 17px; }
-  .proxy-total { color: #1e40af; font-size: 18px; }
-  .monthly-row td { font-size: 14px; font-weight: 800; background: #fafafa; }
-  .dealer-monthly { color: #b91c1c; }
-  .proxy-monthly { color: #0369a1; }
-  .apr-note { font-size: 11px; font-weight: normal; color: #64748b; }
+  .savings-footer { display: flex; justify-content: space-between; align-items: center; background: #0b1b3d; color: #ffffff; border-radius: 10px; padding: 18px 24px; }
+  .sav-details span { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; color: #c5a059; text-transform: uppercase; }
+  .sav-details h3 { margin: 2px 0; font-size: 24px; font-weight: 900; color: #ffffff; }
+  .sav-details p { margin: 0; font-size: 12px; color: #94a3b8; }
+  .jump-btn { background: #c5a059; color: #0b1b3d; padding: 12px 20px; font-size: 13px; font-weight: 800; text-decoration: none; border-radius: 6px; transition: background 0.2s; white-space: nowrap; }
+  .jump-btn:hover { background: #d4af37; }
 
-  .savings-callout-card { display: flex; justify-content: space-between; align-items: center; background: #0b1b3d; color: #ffffff; border-radius: 10px; padding: 20px 24px; }
-  .savings-label { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; color: #c5a059; text-transform: uppercase; }
-  .savings-info h3 { margin: 4px 0; font-size: 26px; font-weight: 900; color: #ffffff; }
-  .savings-info p { margin: 0; font-size: 13px; color: #94a3b8; }
-  .cta-action-btn { background: #c5a059; color: #0b1b3d; padding: 12px 20px; font-size: 14px; font-weight: 800; text-decoration: none; border-radius: 6px; transition: background 0.2s; white-space: nowrap; }
-  .cta-action-btn:hover { background: #d4af37; }
+  .portal-split { display: grid; grid-template-columns: 1.25fr 0.95fr; gap: 28px; margin-top: 20px; }
+  .step-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+  .step-lbl { font-size: 14px; font-weight: 800; color: #0b1b3d; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .step-lbl span { background: #c5a059; color: #0b1b3d; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
-  @media (max-width: 680px) {
-    .toggle-grid { grid-template-columns: 1fr; }
-    .savings-callout-card { flex-direction: column; text-align: center; gap: 14px; }
-    .cost-table th, .cost-table td { padding: 8px 6px; font-size: 11px; }
+  .fields-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .field label { display: block; font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 4px; }
+  .field input { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; box-sizing: border-box; background: #fff; }
+
+  .tier-opt-list { display: flex; flex-direction: column; gap: 8px; }
+  .tier-opt { display: flex; align-items: flex-start; gap: 10px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 12px; cursor: pointer; }
+  .tier-opt.active { border: 2px solid #0284c7; background: #f0f9ff; }
+  .tier-txt strong { display: block; font-size: 12px; color: #0b1b3d; }
+  .tier-txt p { margin: 2px 0 0 0; font-size: 11px; color: #64748b; line-height: 1.3; }
+
+  .addon-stack { display: flex; flex-direction: column; gap: 8px; }
+  .addon-item { display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 10px; cursor: pointer; }
+  .addon-desc { flex: 1; margin-left: 8px; }
+  .addon-desc strong { display: block; font-size: 12px; color: #1e293b; }
+  .addon-desc span { font-size: 11px; color: #64748b; }
+  .addon-prc { font-size: 12px; font-weight: 800; color: #0b1b3d; }
+
+  .submit-action-btn { width: 100%; background: #c5a059; color: #0b1b3d; border: none; padding: 14px; font-size: 14px; font-weight: 900; border-radius: 6px; cursor: pointer; text-transform: uppercase; margin-top: 8px; }
+  .submit-action-btn:hover { background: #d4af37; }
+  .terms-note { font-size: 10px; color: #64748b; text-align: center; margin-top: 8px; }
+
+  .receipt-card { background: #0b1b3d; color: #ffffff; border-radius: 12px; padding: 20px; position: sticky; top: 20px; }
+  .receipt-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 10px; margin-bottom: 12px; }
+  .receipt-head h3 { margin: 0; font-size: 16px; font-weight: 800; color: #ffffff; }
+  .hub-pill { font-size: 10px; background: rgba(197,160,89,0.2); color: #c5a059; padding: 2px 6px; border-radius: 10px; font-weight: 700; }
+
+  .rcpt-row { display: flex; justify-content: space-between; font-size: 12px; color: #cbd5e1; margin-bottom: 6px; }
+  .rcpt-row.highlight { color: #c5a059; font-weight: 800; }
+  .rcpt-div { height: 1px; background: rgba(255,255,255,0.15); margin: 12px 0; }
+  .rcpt-grand { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .rcpt-grand span { font-size: 12px; font-weight: 700; color: #ffffff; }
+  .rcpt-grand h2 { margin: 0; font-size: 20px; font-weight: 900; color: #38bdf8; }
+
+  .fin-banner { background: rgba(56, 189, 248, 0.1); border: 1px solid #38bdf8; border-radius: 6px; padding: 10px; text-align: center; margin-bottom: 12px; }
+  .fin-tag { font-size: 9px; font-weight: 800; color: #93c5fd; }
+  .fin-banner h4 { margin: 2px 0 0 0; font-size: 16px; font-weight: 900; color: #ffffff; }
+
+  .sav-box { background: rgba(16, 185, 129, 0.15); border-left: 3px solid #10b981; border-radius: 4px; padding: 8px 10px; }
+  .sav-tag { font-size: 9px; font-weight: 800; color: #34d399; }
+  .sav-box h4 { margin: 2px 0; font-size: 15px; font-weight: 900; color: #ffffff; }
+  .sav-box p { margin: 0; font-size: 10px; color: #cbd5e1; }
+
+  @media (max-width: 820px) {
+    .toggles-flex, .portal-split { grid-template-columns: 1fr; }
+    .savings-footer { flex-direction: column; text-align: center; gap: 12px; }
+    .receipt-card { position: static; }
   }
 </style>
+
 <script>
-  let isFinanceMode = false;
-  let isWarrantyActive = false;
+  let calcIsFinance = false;
+  let calcHasWarranty = false;
+  let portalTierFee = 1500;
+  let portalTierTitle = "Tier 1: Core Sourcing Fee:";
+  let portalIsFinance = false;
 
-  const sliderElem = document.getElementById('inputHammer');
-  sliderElem.addEventListener('input', runLiveCalculation);
+  const hammerSlider = document.getElementById('auctionHammerSlider');
+  hammerSlider.addEventListener('input', runFullCalculator);
 
-  function updatePaymentMode(mode) {
-    isFinanceMode = (mode === 'finance');
-    document.getElementById('btnCash').classList.toggle('active', !isFinanceMode);
-    document.getElementById('btnFinance').classList.toggle('active', isFinanceMode);
-    runLiveCalculation();
+  function setCalcPayMode(mode) {
+    calcIsFinance = (mode === 'finance');
+    document.getElementById('btnModeCash').classList.toggle('active', !calcIsFinance);
+    document.getElementById('btnModeFinance').classList.toggle('active', calcIsFinance);
+    runFullCalculator();
   }
 
-  function updateWarrantyMode(state) {
-    isWarrantyActive = state;
-    document.getElementById('btnWarrNo').classList.toggle('active', !isWarrantyActive);
-    document.getElementById('btnWarrYes').classList.toggle('active', isWarrantyActive);
-    runLiveCalculation();
+  function setCalcWarranty(hasWarr) {
+    calcHasWarranty = hasWarr;
+    document.getElementById('btnCalcWarrNo').classList.toggle('active', !calcHasWarranty);
+    document.getElementById('btnCalcWarrYes').classList.toggle('active', calcHasWarranty);
+    runFullCalculator();
   }
 
-  function calculatePMT(principal, annualRate, months) {
-    let r = (annualRate / 100) / 12;
+  function calcPMT(principal, annualApr, months) {
+    let r = (annualApr / 100) / 12;
     return principal * (r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
   }
 
-  function runLiveCalculation() {
-    let hammer = parseFloat(sliderElem.value);
-    document.getElementById('displayHammer').innerText = '$' + hammer.toLocaleString() + ' CAD';
+  function runFullCalculator() {
+    let hammer = parseFloat(hammerSlider.value);
+    document.getElementById('displaySliderVal').innerText = '$' + hammer.toLocaleString('en-CA') + ' CAD';
 
     let dealBase = Math.round(hammer * 1.257);
-    let dealSafety = 899.00;
+    let dealSafety = 995.00;
     let dealAdmin = 799.00;
     let dealEtch = 499.00;
-    let dealFinanceFee = isFinanceMode ? 895.00 : 0.00;
-    let dealWarranty = isWarrantyActive ? 2850.00 : 0.00;
-    let dealPPSA = isFinanceMode ? 84.25 : 0.00;
+    let dealOmvic = 22.00;
+    let dealFinanceFee = calcIsFinance ? 895.00 : 0.00;
+    let dealWarranty = calcHasWarranty ? 2850.00 : 0.00;
+    let dealPPSA = calcIsFinance ? 84.25 : 0.00;
 
-    let dealTaxable = dealBase + dealSafety + dealAdmin + dealEtch + dealFinanceFee + dealWarranty;
+    let dealTaxable = dealBase + dealSafety + dealAdmin + dealEtch + dealOmvic + dealFinanceFee + dealWarranty;
     let dealTax = (dealTaxable * 0.13) + 59.00 + dealPPSA;
-    let dealFinal = dealTaxable + dealTax;
+    let dealTotal = dealTaxable + dealTax;
 
     let proxyBuyerFee = 485.00;
     let proxyPSI = 175.00;
     let proxyTransport = 300.00;
-    let proxySafetyInspection = 160.00;
-    let proxySafetyParts = 400.00;
-    let proxySourcingFee = 1500.00;
-    let proxyWarranty = isWarrantyActive ? 1250.00 : 0.00;
-    let proxyPPSA = isFinanceMode ? 84.25 : 0.00;
+    let proxySafetyInsp = 160.00;
+    let proxyPartsAvg = 500.00;
+    let proxyOmvic = 22.00;
+    let proxySourcing = 1500.00;
+    let proxyWarranty = calcHasWarranty ? 1250.00 : 0.00;
+    let proxyPPSA = calcIsFinance ? 84.25 : 0.00;
 
-    let proxyTaxable = hammer + proxyBuyerFee + proxyPSI + proxyTransport + proxySafetyInspection + proxySafetyParts + proxySourcingFee + proxyWarranty;
+    let proxyTaxable = hammer + proxyBuyerFee + proxyPSI + proxyTransport + proxySafetyInsp + proxyPartsAvg + proxyOmvic + proxySourcing + proxyWarranty;
     let proxyTax = (proxyTaxable * 0.13) + 59.00 + proxyPPSA;
-    let proxyFinal = proxyTaxable + proxyTax;
+    let proxyTotal = proxyTaxable + proxyTax;
 
-    document.getElementById('dealBasePrice').innerText = '$' + dealBase.toLocaleString('en-CA', {minimumFractionDigits: 2});
-    document.getElementById('proxyBasePrice').innerHTML = '$' + hammer.toLocaleString('en-CA', {minimumFractionDigits: 2}) + ' <span class="note">(Hammer Bid)</span>';
+    document.getElementById('retailBaseDisplay').innerText = '$' + dealBase.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('proxyBaseDisplay').innerHTML = '$' + hammer.toLocaleString('en-CA', {minimumFractionDigits: 2}) + ' <span class="dim-tag">(Auction Bid)</span>';
 
-    document.getElementById('dealTax').innerText = '$' + dealTax.toLocaleString('en-CA', {minimumFractionDigits: 2});
-    document.getElementById('proxyTax').innerText = '$' + proxyTax.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('retailTaxDisplay').innerText = '$' + dealTax.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('proxyTaxDisplay').innerText = '$' + proxyTax.toLocaleString('en-CA', {minimumFractionDigits: 2});
 
-    document.getElementById('dealTotal').innerText = '$' + dealFinal.toLocaleString('en-CA', {minimumFractionDigits: 2});
-    document.getElementById('proxyTotal').innerText = '$' + proxyFinal.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('retailTotalDisplay').innerText = '$' + dealTotal.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('proxyTotalDisplay').innerText = '$' + proxyTotal.toLocaleString('en-CA', {minimumFractionDigits: 2});
 
-    document.getElementById('rowDealerFinanceFee').style.display = isFinanceMode ? 'table-row' : 'none';
-    document.getElementById('rowPpsaFee').style.display = isFinanceMode ? 'table-row' : 'none';
-    document.getElementById('rowWarrantyFee').style.display = isWarrantyActive ? 'table-row' : 'none';
-    document.getElementById('rowHeadingFinanceWarr').style.display = (isFinanceMode || isWarrantyActive) ? 'table-row' : 'none';
-    document.getElementById('rowMonthlyComparison').style.display = isFinanceMode ? 'table-row' : 'none';
+    document.getElementById('rowDealerFinanceSurcharge').style.display = calcIsFinance ? 'table-row' : 'none';
+    document.getElementById('rowWarrantyComparison').style.display = calcHasWarranty ? 'table-row' : 'none';
+    document.getElementById('rowPpsaComparison').style.display = calcIsFinance ? 'table-row' : 'none';
+    document.getElementById('groupFinanceWarr').style.display = (calcIsFinance || calcHasWarranty) ? 'table-row' : 'none';
+    document.getElementById('rowMonthlyComparison').style.display = calcIsFinance ? 'table-row' : 'none';
 
-    if (isFinanceMode) {
-      let dealMo = calculatePMT(dealFinal, 9.20, 60);
-      let proxyMo = calculatePMT(proxyFinal, 7.20, 60);
-      document.getElementById('dealMonthly').innerHTML = '$' + dealMo.toFixed(2) + ' / mo <span class="apr-note">(9.20% APR)</span>';
-      document.getElementById('proxyMonthly').innerHTML = '$' + proxyMo.toFixed(2) + ' / mo <span class="apr-note">(7.20% APR)</span>';
+    if (calcIsFinance) {
+      let dealMo = calcPMT(dealTotal, 9.20, 60);
+      let proxyMo = calcPMT(proxyTotal, 7.20, 60);
+      document.getElementById('retailMonthlyDisplay').innerHTML = '$' + dealMo.toFixed(2) + ' / mo <small>(9.20% APR)</small>';
+      document.getElementById('proxyMonthlyDisplay').innerHTML = '$' + proxyMo.toFixed(2) + ' / mo <small>(7.20% APR)</small>';
 
-      let totalLoanSavings = (dealMo * 60) - (proxyMo * 60);
-      document.getElementById('savingsSummaryDisplay').innerText = '$' + totalLoanSavings.toLocaleString('en-CA', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' CAD';
-      document.getElementById('savingsContextDisplay').innerText = 'Total 5-year savings on lower vehicle price, uninflated bank rates, and wholesale warranty.';
+      let total5YrSavings = (dealMo * 60) - (proxyMo * 60);
+      document.getElementById('savingsTotalDisplay').innerText = '$' + total5YrSavings.toLocaleString('en-CA', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' CAD';
+      document.getElementById('savingsDescDisplay').innerText = 'Total 5-year savings on lower vehicle price, uninflated bank rates, and wholesale warranty.';
     } else {
-      let upfrontSavings = dealFinal - proxyFinal;
-      document.getElementById('savingsSummaryDisplay').innerText = '$' + upfrontSavings.toLocaleString('en-CA', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' CAD';
-      document.getElementById('savingsContextDisplay').innerText = 'Direct out-of-pocket cash saved by eliminating retail dealership markups.';
+      let upfrontSavings = dealTotal - proxyTotal;
+      document.getElementById('savingsTotalDisplay').innerText = '$' + upfrontSavings.toLocaleString('en-CA', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' CAD';
+      document.getElementById('savingsDescDisplay').innerText = 'Direct out-of-pocket cash saved by eliminating retail dealership markups.';
     }
   }
 
-  runLiveCalculation();
+  function selectOrderTier(fee, title, el) {
+    portalTierFee = fee;
+    portalTierTitle = title + " Fee:";
+    document.querySelectorAll('.tier-opt').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    el.querySelector('input[type="radio"]').checked = true;
+    syncPortalOrder();
+  }
+
+  function setOrderPayType(type) {
+    portalIsFinance = (type === 'finance');
+    document.getElementById('btnOrderPayCash').classList.toggle('active', !portalIsFinance);
+    document.getElementById('btnOrderPayFinance').classList.toggle('active', portalIsFinance);
+    syncPortalOrder();
+  }
+
+  function syncPortalOrder() {
+    let hammer = parseFloat(document.getElementById('orderHammerInput').value) || 0;
+    let buyerFee = 485.00;
+    let psi = 175.00;
+    let transport = 300.00;
+    let safetyInsp = 160.00;
+    let safetyParts = 500.00;
+    let omvic = 22.00;
+
+    let hasWarr = document.getElementById('orderOptWarranty').checked;
+    let hasDeliv = document.getElementById('orderOptDelivery').checked;
+    let hasDetail = document.getElementById('orderOptDetail').checked;
+
+    let warrCost = hasWarr ? 1250.00 : 0.00;
+    let delivCost = hasDeliv ? 150.00 : 0.00;
+    let detailCost = hasDetail ? 350.00 : 0.00;
+    let ppsaCost = portalIsFinance ? 84.25 : 0.00;
+
+    let taxable = hammer + buyerFee + psi + transport + safetyInsp + safetyParts + omvic + portalTierFee + warrCost + delivCost + detailCost;
+    let hst = taxable * 0.13;
+    let mto = 59.00;
+    let total = taxable + hst + mto + ppsaCost;
+
+    document.getElementById('rcptHammer').innerText = '$' + hammer.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('rcptTierLabel').innerText = portalTierTitle;
+    document.getElementById('rcptTierFee').innerText = '+$' + portalTierFee.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('rcptTax').innerText = '$' + hst.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('rcptTotal').innerText = '$' + total.toLocaleString('en-CA', {minimumFractionDigits: 2}) + ' CAD';
+
+    document.getElementById('rcptRowWarranty').style.display = hasWarr ? 'flex' : 'none';
+    document.getElementById('rcptRowDelivery').style.display = hasDeliv ? 'flex' : 'none';
+    document.getElementById('rcptRowDetail').style.display = hasDetail ? 'flex' : 'none';
+    document.getElementById('rcptRowPpsa').style.display = portalIsFinance ? 'flex' : 'none';
+    document.getElementById('rcptFinanceBanner').style.display = portalIsFinance ? 'block' : 'none';
+
+    if (portalIsFinance) {
+      let monthly = calcPMT(total, 7.20, 60);
+      document.getElementById('rcptMonthlyDisplay').innerText = '$' + monthly.toFixed(2) + ' / month';
+    }
+
+    let estimatedRetail = (hammer * 1.257) + 995 + 799 + 499 + omvic + (hasWarr ? 2850 : 0);
+    let estRetailTotal = (estimatedRetail * 1.13) + 59.00;
+    let savings = Math.max(2500, estRetailTotal - total);
+    document.getElementById('rcptSavingsDisplay').innerText = '$' + savings.toLocaleString('en-CA', {minimumFractionDigits: 2}) + ' CAD';
+  }
+
+  function handlePortalOrderSubmit(e) {
+    e.preventDefault();
+    const payload = {
+      year: document.getElementById('orderYear').value,
+      model: document.getElementById('orderModel').value,
+      km: document.getElementById('orderKm').value,
+      hammerTarget: document.getElementById('orderHammerInput').value,
+      tierFee: portalTierFee,
+      paymentMode: portalIsFinance ? 'Prime Finance (60 Mo)' : 'Cash / Bank Draft',
+      warranty: document.getElementById('orderOptWarranty').checked,
+      delivery: document.getElementById('orderOptDelivery').checked,
+      detail: document.getElementById('orderOptDetail').checked,
+      name: document.getElementById('clientName').value,
+      phone: document.getElementById('clientPhone').value,
+      email: document.getElementById('clientEmail').value,
+      city: document.getElementById('clientCity').value,
+      quoteTotal: document.getElementById('rcptTotal').innerText
+    };
+    console.log("Sourcing Order Received:", payload);
+    alert("Thank you, " + payload.name + "! Sourcing request received. Our team will review the wholesale runs and reach out shortly.");
+  }
+
+  runFullCalculator();
+  syncPortalOrder();
 </script>
-    </div>
-  </section>
+
 
   <!-- ================= SOURCING TIERS ================= -->
   <section class="section section-alt" id="tiers">
@@ -822,391 +1157,7 @@
   </section>
 
   <!-- ================= REQUEST FORM ================= -->
-  <section class="section section-navy" id="request">
-    <div class="container">
-<div class="portal-container" id="sourcing-portal">
-  <div class="portal-header">
-    <span class="portal-badge">OPEN-BOOK PROXY SOURCING</span>
-    <h2>Build Your Custom Vehicle Sourcing Order</h2>
-    <p>Complete transparency. Zero surprise fees. See your exact live quote as you build your order.</p>
-  </div>
-
-  <div class="portal-grid">
-    <div class="form-container">
-      <form id="orderForm" onsubmit="handleFormSubmit(event)">
-
-        <div class="form-section">
-          <div class="section-title"><span>1</span> Vehicle Wishlist &amp; Target Budget</div>
-          <div class="input-row-2">
-            <div class="field-group">
-              <label>Year Range</label>
-              <input type="text" id="targetYear" placeholder="e.g. 2021 - 2024" required>
-            </div>
-            <div class="field-group">
-              <label>Make &amp; Model</label>
-              <input type="text" id="targetModel" placeholder="e.g. Toyota RAV4 / Ford Transit" required>
-            </div>
-          </div>
-          <div class="input-row-2">
-            <div class="field-group">
-              <label>Max Mileage (km)</label>
-              <input type="text" id="targetKm" placeholder="e.g. Under 80,000 km">
-            </div>
-            <div class="field-group">
-              <label>Wholesale Hammer Target ($ CAD)</label>
-              <input type="number" id="hammerInput" value="18000" min="5000" max="100000" step="500" oninput="updateLiveQuote()" required>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <div class="section-title"><span>2</span> Select Your Sourcing Tier</div>
-          <div class="tier-selection-grid">
-            <label class="tier-card active" onclick="selectTier(1500, 'Tier 1: Core Sourcing', this)">
-              <input type="radio" name="tier" value="1500" checked>
-              <div class="tier-info">
-                <strong>Core Passenger Sourcing</strong>
-                <p>Sedans, Hatchbacks, Compact/Mid SUVs ($15k&ndash;$35k). Dealer auction bidding, PSI warranty, DriveON safety coordination.</p>
-                <div class="tier-price">$1,500 CAD</div>
-              </div>
-            </label>
-
-            <label class="tier-card" onclick="selectTier(2200, 'Tier 2: Work Van &amp; HD Truck', this)">
-              <input type="radio" name="tier" value="2200">
-              <div class="tier-info">
-                <strong>Commercial Van &amp; HD Truck</strong>
-                <p>Cargo vans (Transit/ProMaster) &amp; 2500/3500 HD diesel pickups. Commercial suspension check &amp; fleet upfit coordination.</p>
-                <div class="tier-price">$2,200 CAD</div>
-              </div>
-            </label>
-
-            <label class="tier-card" onclick="selectTier(2995, 'Tier 3: White Glove Handover', this)">
-              <input type="radio" name="tier" value="2995">
-              <div class="tier-info">
-                <strong>White Glove Turnkey Handover</strong>
-                <p>Premium SUVs &amp; Executive sourcing. Includes 2-stage paint correction/detail, baseline 6-mo warranty &amp; flatbed home delivery.</p>
-                <div class="tier-price">$2,995 CAD</div>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <div class="section-title"><span>3</span> Payment Structure &amp; Protection</div>
-
-          <label class="sub-label">Payment Method</label>
-          <div class="payment-toggle-group">
-            <button type="button" class="pay-btn active" id="btnPayCash" onclick="setPaymentType('cash')">Direct Bank Draft / Cash</button>
-            <button type="button" class="pay-btn" id="btnPayFinance" onclick="setPaymentType('finance')">Prime Financing (60 Months @ 7.20%)</button>
-          </div>
-
-          <label class="sub-label" style="margin-top: 16px;">Optional Wholesale Protection &amp; Upgrades</label>
-          <div class="addons-list">
-            <label class="addon-checkbox">
-              <input type="checkbox" id="chkOptWarranty" value="1250" onchange="updateLiveQuote()" checked>
-              <div class="addon-text">
-                <strong>2-Year Extended Comprehensive Warranty (Wholesale Pass-Through)</strong>
-                <span>Direct wholesale rate (Retail dealer price: $2,850+). Zero markup.</span>
-              </div>
-              <span class="addon-cost">+$1,250</span>
-            </label>
-
-            <label class="addon-checkbox">
-              <input type="checkbox" id="chkOptDelivery" value="150" onchange="updateLiveQuote()">
-              <div class="addon-text">
-                <strong>Direct Driveway Flatbed Delivery (GTHA)</strong>
-                <span>Delivered directly from our Etobicoke hub to your residence or job site.</span>
-              </div>
-              <span class="addon-cost">+$150</span>
-            </label>
-
-            <label class="addon-checkbox">
-              <input type="checkbox" id="chkOptDetail" value="350" onchange="updateLiveQuote()">
-              <div class="addon-text">
-                <strong>Full Interior/Exterior Deep Detail &amp; Ceramic Paint Sealant</strong>
-                <span>Wholesale shop rate reconditioning package.</span>
-              </div>
-              <span class="addon-cost">+$350</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <div class="section-title"><span>4</span> Contact Details for Sourcing File</div>
-          <div class="input-row-2">
-            <div class="field-group">
-              <label>Full Legal Name</label>
-              <input type="text" id="custName" placeholder="First and Last Name" required>
-            </div>
-            <div class="field-group">
-              <label>Phone / WhatsApp</label>
-              <input type="tel" id="custPhone" placeholder="(416) 000-0000" required>
-            </div>
-          </div>
-          <div class="input-row-2">
-            <div class="field-group">
-              <label>Email Address</label>
-              <input type="email" id="custEmail" placeholder="yourname@domain.com" required>
-            </div>
-            <div class="field-group">
-              <label>City / Borough</label>
-              <input type="text" id="custCity" placeholder="e.g. Mississauga / Etobicoke" required>
-            </div>
-          </div>
-          <button type="submit" class="submit-order-btn" id="submitOrderBtn">Submit Wholesale Sourcing Request</button>
-          <p class="form-disclaimer" id="formDisclaimer">OMVIC Licensed Proxy Sourcing. No deposit is charged until you approve a specific auction match.</p>
-        </div>
-      </form>
-    </div>
-
-    <div class="summary-container">
-      <div class="receipt-card">
-        <div class="receipt-header">
-          <h3>Live Open-Book Summary</h3>
-          <span class="hub-tag">Etobicoke Hub Sourcing</span>
-        </div>
-
-        <div class="receipt-line">
-          <span>Target Hammer Bid:</span>
-          <strong id="recHammer">$18,000.00</strong>
-        </div>
-        <div class="receipt-line">
-          <span>Auction Buyer Fee &amp; Gate:</span>
-          <span>+$485.00</span>
-        </div>
-        <div class="receipt-line">
-          <span>Post-Sale Inspection (PSI Warranty):</span>
-          <span>+$175.00</span>
-        </div>
-        <div class="receipt-line">
-          <span>Flatbed Transport to Hub:</span>
-          <span>+$300.00</span>
-        </div>
-        <div class="receipt-line">
-          <span>DriveON Safety Inspection &amp; Shop Parts:</span>
-          <span>+$560.00</span>
-        </div>
-
-        <div class="receipt-line highlight">
-          <span id="recTierLabel">Tier 1: Core Sourcing Fee:</span>
-          <strong id="recTierFee">+$1,500.00</strong>
-        </div>
-
-        <div class="receipt-line" id="recRowWarranty">
-          <span>2-Yr Comprehensive Warranty:</span>
-          <strong id="recWarrantyVal">+$1,250.00</strong>
-        </div>
-        <div class="receipt-line" id="recRowDelivery" style="display:none;">
-          <span>Driveway Flatbed Delivery:</span>
-          <strong>+$150.00</strong>
-        </div>
-        <div class="receipt-line" id="recRowDetail" style="display:none;">
-          <span>Detailing &amp; Ceramic Sealant:</span>
-          <strong>+$350.00</strong>
-        </div>
-        <div class="receipt-line" id="recRowPpsa" style="display:none;">
-          <span>PPSA Bank Lien (60-Mo):</span>
-          <strong>+$84.25</strong>
-        </div>
-
-        <div class="receipt-line">
-          <span>Ontario HST (13%):</span>
-          <strong id="recTax">$2,900.95</strong>
-        </div>
-        <div class="receipt-line">
-          <span>ServiceOntario Licensing/Plates:</span>
-          <span>+$59.00</span>
-        </div>
-
-        <div class="receipt-divider"></div>
-
-        <div class="receipt-total">
-          <span>Total Drive-Away Investment:</span>
-          <h2 id="recTotal">$25,279.95 CAD</h2>
-        </div>
-
-        <div class="finance-monthly-box" id="recFinanceBox" style="display:none;">
-          <div class="mo-label">ESTIMATED PRIME MONTHLY PAYMENT (60 MO @ 7.20% APR):</div>
-          <div class="mo-amount" id="recMonthly">$503.11 / month</div>
-        </div>
-
-        <div class="savings-guarantee-box">
-          <div class="sav-title">ESTIMATED RETAIL DEALER SAVINGS</div>
-          <div class="sav-amount" id="recSavings">$4,850.00 CAD</div>
-          <p>You pay zero admin charges, zero safety markup, and zero forced accessories.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<style>
-  .portal-container { max-width: 1100px; margin: 30px auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 32px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; box-shadow: 0 10px 30px rgba(11,27,61,0.06); }
-  .portal-header { text-align: center; margin-bottom: 30px; }
-  .portal-badge { background: #e0f2fe; color: #0284c7; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; }
-  .portal-header h2 { font-size: 26px; color: #0b1b3d; margin: 10px 0 6px 0; font-weight: 800; }
-  .portal-header p { font-size: 14px; color: #64748b; margin: 0; }
-
-  .portal-grid { display: grid; grid-template-columns: 1.25fr 0.95fr; gap: 32px; }
-
-  .form-section { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-bottom: 20px; }
-  .section-title { font-size: 15px; font-weight: 800; color: #0b1b3d; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-  .section-title span { background: #c5a059; color: #0b1b3d; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; }
-
-  .input-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; }
-  .field-group label { display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 4px; }
-  .field-group input { width: 100%; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; box-sizing: border-box; background: #fff; }
-  .field-group input:focus { outline: none; border-color: #0284c7; }
-
-  .sub-label { display: block; font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 6px; }
-  .payment-toggle-group { display: flex; background: #e2e8f0; border-radius: 6px; padding: 3px; gap: 4px; }
-  .pay-btn { flex: 1; border: none; background: transparent; padding: 8px 10px; font-size: 12px; font-weight: 700; cursor: pointer; border-radius: 5px; color: #475569; transition: all 0.2s; }
-  .pay-btn.active { background: #0b1b3d; color: #ffffff; }
-
-  .tier-selection-grid { display: flex; flex-direction: column; gap: 8px; }
-  .tier-card { display: flex; align-items: flex-start; gap: 10px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.2s; }
-  .tier-card.active { border: 2px solid #0284c7; background: #f0f9ff; }
-  .tier-info strong { display: block; font-size: 13px; color: #0b1b3d; }
-  .tier-info p { margin: 2px 0 6px 0; font-size: 11px; color: #64748b; line-height: 1.3; }
-  .tier-price { font-size: 13px; font-weight: 800; color: #0284c7; }
-
-  .addons-list { display: flex; flex-direction: column; gap: 8px; }
-  .addon-checkbox { display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; cursor: pointer; }
-  .addon-text { flex: 1; margin-left: 8px; }
-  .addon-text strong { display: block; font-size: 12px; color: #1e293b; }
-  .addon-text span { font-size: 11px; color: #64748b; }
-  .addon-cost { font-size: 12px; font-weight: 800; color: #0b1b3d; }
-
-  .submit-order-btn { width: 100%; background: #c5a059; color: #0b1b3d; border: none; padding: 14px; font-size: 15px; font-weight: 900; border-radius: 6px; cursor: pointer; transition: background 0.2s; text-transform: uppercase; margin-top: 10px; }
-  .submit-order-btn:hover { background: #d4af37; }
-  .submit-order-btn:disabled { background: #10b981; color: #ffffff; cursor: default; }
-  .form-disclaimer { font-size: 11px; color: #64748b; text-align: center; margin-top: 8px; }
-
-  .receipt-card { background: #0b1b3d; color: #ffffff; border-radius: 12px; padding: 24px; position: sticky; top: 20px; }
-  .receipt-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 12px; margin-bottom: 14px; }
-  .receipt-header h3 { margin: 0; font-size: 17px; font-weight: 800; color: #ffffff; }
-  .hub-tag { font-size: 11px; background: rgba(197,160,89,0.2); color: #c5a059; padding: 2px 8px; border-radius: 10px; font-weight: 700; }
-
-  .receipt-line { display: flex; justify-content: space-between; font-size: 12px; color: #cbd5e1; margin-bottom: 8px; }
-  .receipt-line.highlight { color: #c5a059; font-weight: 800; }
-  .receipt-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 14px 0; }
-  .receipt-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-  .receipt-total span { font-size: 13px; font-weight: 700; color: #ffffff; }
-  .receipt-total h2 { margin: 0; font-size: 22px; font-weight: 900; color: #38bdf8; }
-
-  .finance-monthly-box { background: rgba(56, 189, 248, 0.1); border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; text-align: center; margin-bottom: 14px; }
-  .mo-label { font-size: 10px; font-weight: 800; color: #93c5fd; letter-spacing: 0.05em; }
-  .mo-amount { font-size: 18px; font-weight: 900; color: #ffffff; margin-top: 2px; }
-
-  .savings-guarantee-box { background: rgba(16, 185, 129, 0.15); border-left: 3px solid #10b981; border-radius: 4px; padding: 10px 12px; }
-  .sav-title { font-size: 10px; font-weight: 800; color: #34d399; letter-spacing: 0.05em; }
-  .sav-amount { font-size: 17px; font-weight: 900; color: #ffffff; margin: 2px 0; }
-  .savings-guarantee-box p { margin: 0; font-size: 10px; color: #cbd5e1; }
-
-  @media (max-width: 860px) { .portal-grid { grid-template-columns: 1fr; } .receipt-card { position: static; } }
-</style>
-<script>
-  let selectedTierFee = 1500;
-  let selectedTierLabel = "Tier 1: Core Sourcing Fee:";
-  let isPaymentFinanced = false;
-
-  function selectTier(fee, label, element) {
-    selectedTierFee = fee;
-    selectedTierLabel = label + " Fee:";
-    document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('active'));
-    element.classList.add('active');
-    element.querySelector('input[type="radio"]').checked = true;
-    updateLiveQuote();
-  }
-
-  function setPaymentType(type) {
-    isPaymentFinanced = (type === 'finance');
-    document.getElementById('btnPayCash').classList.toggle('active', !isPaymentFinanced);
-    document.getElementById('btnPayFinance').classList.toggle('active', isPaymentFinanced);
-    updateLiveQuote();
-  }
-
-  function calculateMonthlyPMT(principal, apr, months) {
-    let r = (apr / 100) / 12;
-    return principal * (r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
-  }
-
-  function updateLiveQuote() {
-    let hammer = parseFloat(document.getElementById('hammerInput').value) || 0;
-
-    let buyerFee = 485.00;
-    let psi = 175.00;
-    let transport = 300.00;
-    let safety = 560.00;
-
-    let hasWarranty = document.getElementById('chkOptWarranty').checked;
-    let hasDelivery = document.getElementById('chkOptDelivery').checked;
-    let hasDetail = document.getElementById('chkOptDetail').checked;
-
-    let warrantyCost = hasWarranty ? 1250.00 : 0.00;
-    let deliveryCost = hasDelivery ? 150.00 : 0.00;
-    let detailCost = hasDetail ? 350.00 : 0.00;
-    let ppsaCost = isPaymentFinanced ? 84.25 : 0.00;
-
-    let taxableBase = hammer + buyerFee + psi + transport + safety + selectedTierFee + warrantyCost + deliveryCost + detailCost;
-    let hst = taxableBase * 0.13;
-    let mtoPlates = 59.00;
-    let totalDriveAway = taxableBase + hst + mtoPlates + ppsaCost;
-
-    document.getElementById('recHammer').innerText = '$' + hammer.toLocaleString('en-CA', {minimumFractionDigits: 2});
-    document.getElementById('recTierLabel').innerText = selectedTierLabel;
-    document.getElementById('recTierFee').innerText = '+$' + selectedTierFee.toLocaleString('en-CA', {minimumFractionDigits: 2});
-    document.getElementById('recTax').innerText = '$' + hst.toLocaleString('en-CA', {minimumFractionDigits: 2});
-    document.getElementById('recTotal').innerText = '$' + totalDriveAway.toLocaleString('en-CA', {minimumFractionDigits: 2}) + ' CAD';
-
-    document.getElementById('recRowWarranty').style.display = hasWarranty ? 'flex' : 'none';
-    document.getElementById('recRowDelivery').style.display = hasDelivery ? 'flex' : 'none';
-    document.getElementById('recRowDetail').style.display = hasDetail ? 'flex' : 'none';
-    document.getElementById('recRowPpsa').style.display = isPaymentFinanced ? 'flex' : 'none';
-    document.getElementById('recFinanceBox').style.display = isPaymentFinanced ? 'block' : 'none';
-
-    if (isPaymentFinanced) {
-      let monthly = calculateMonthlyPMT(totalDriveAway, 7.20, 60);
-      document.getElementById('recMonthly').innerText = '$' + monthly.toFixed(2) + ' / month';
-    }
-
-    let estimatedRetail = (hammer * 1.257) + 799 + 899 + 499 + (hasWarranty ? 2850 : 0);
-    let estimatedRetailTotal = (estimatedRetail * 1.13) + 59.00;
-    let savings = Math.max(2500, estimatedRetailTotal - totalDriveAway);
-    document.getElementById('recSavings').innerText = '$' + savings.toLocaleString('en-CA', {minimumFractionDigits: 2}) + ' CAD';
-  }
-
-  function handleFormSubmit(e) {
-    e.preventDefault();
-    const orderData = {
-      yearRange: document.getElementById('targetYear').value,
-      model: document.getElementById('targetModel').value,
-      mileage: document.getElementById('targetKm').value,
-      hammerTarget: document.getElementById('hammerInput').value,
-      tierFee: selectedTierFee,
-      tierName: selectedTierLabel,
-      paymentMode: isPaymentFinanced ? 'Prime Finance (60 Mo)' : 'Cash / Bank Draft',
-      warranty: document.getElementById('chkOptWarranty').checked,
-      delivery: document.getElementById('chkOptDelivery').checked,
-      detail: document.getElementById('chkOptDetail').checked,
-      clientName: document.getElementById('custName').value,
-      phone: document.getElementById('custPhone').value,
-      email: document.getElementById('custEmail').value,
-      city: document.getElementById('custCity').value,
-      estimatedDriveAway: document.getElementById('recTotal').innerText
-    };
-
-    console.log("Order Submitted Successfully:", orderData);
-
-    const btn = document.getElementById('submitOrderBtn');
-    btn.textContent = 'Request Received ✓';
-    btn.disabled = true;
-    document.getElementById('formDisclaimer').textContent = "Thanks, " + orderData.clientName + "! Your sourcing request has been received. A wholesale specialist from our Etobicoke hub will review the auction lanes and contact you within 2 hours.";
-  }
-
-  updateLiveQuote();
-</script>
-    </div>
-  </section>
+  
 
 </main>
 
