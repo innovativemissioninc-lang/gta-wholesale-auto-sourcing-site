@@ -261,74 +261,309 @@
   <!-- ================= CALCULATOR ================= -->
   <section class="section" id="calculator">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Interactive Transparency Calculator</p>
-        <h2>See your exact savings before you commit to anything.</h2>
-        <p class="lede">Enter the live auction hammer price for the vehicle you want and toggle financing or an extended warranty — the calculator instantly compares a traditional GTA retail lot against GTA Wholesale Auto Sourcing's open-book pricing.</p>
+<div class="wholesale-calculator-container">
+  <div class="calc-top-header">
+    <span class="tag-pill">RADICAL TRANSPARENCY</span>
+    <h2>True Cost Breakdown: Wholesale Proxy vs. Traditional Dealership</h2>
+    <p>See exactly what you pay for on every line item&mdash;no hidden markups, no forced accessories.</p>
+  </div>
+
+  <div class="calc-control-panel">
+    <div class="slider-wrapper">
+      <div class="slider-labels">
+        <span>Wholesale Auction Target:</span>
+        <strong id="displayHammer">$17,500 CAD</strong>
       </div>
+      <input type="range" id="inputHammer" min="10000" max="60000" step="500" value="17500">
+      <div class="slider-range-indicators">
+        <span>$10,000</span>
+        <span>$35,000</span>
+        <span>$60,000</span>
+      </div>
+    </div>
 
-      <div class="calc-card" data-calculator>
-        <div class="calc-header">
-          <h3 style="color:#fff;">Wholesale vs. Retail Savings Calculator</h3>
-          <p style="color:rgba(255,255,255,.75); margin-top:6px; font-size:14.5px;">All figures in CAD. Based on a 60-month term where financing is selected.</p>
-        </div>
-
-        <div class="calc-body">
-          <div>
-            <div class="calc-field">
-              <label for="hammerPrice">Auction Hammer Price — <span class="calc-slider-value" data-price-output>$25,000</span></label>
-              <input type="range" id="hammerPrice" min="8000" max="90000" step="500" value="25000" data-price-input>
-              <p class="hint">Drag to match the vehicle's live wholesale auction price at OPENLANE or Manheim Milton.</p>
-            </div>
-            <div class="calc-field">
-              <label for="hammerPriceNum">Or enter an exact price</label>
-              <input type="number" id="hammerPriceNum" class="calc-input" min="8000" max="90000" step="100" value="25000"
-                oninput="document.getElementById('hammerPrice').value=this.value; document.getElementById('hammerPrice').dispatchEvent(new Event('input'));">
-            </div>
-          </div>
-
-          <div>
-            <div class="toggle-row">
-              <div>
-                <div class="toggle-label">Financed (60 mo.)</div>
-                <div class="toggle-sub">7.20% wholesale-linked prime vs. 9.20% dealer-marked rate</div>
-              </div>
-              <label class="switch">
-                <input type="checkbox" data-finance-toggle aria-label="Toggle financed vs. cash">
-                <span class="track"></span><span class="thumb"></span>
-              </label>
-            </div>
-            <div class="toggle-row">
-              <div>
-                <div class="toggle-label">2-Year Extended Warranty</div>
-                <div class="toggle-sub">Wholesale $1,250 vs. retail dealer markup $2,850</div>
-              </div>
-              <label class="switch">
-                <input type="checkbox" data-warranty-toggle aria-label="Toggle extended warranty">
-                <span class="track"></span><span class="thumb"></span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="calc-results">
-          <div class="result-card">
-            <div class="result-label">Traditional GTA Retail Lot</div>
-            <div class="result-value" data-deal-total>$38,052</div>
-            <div class="result-sub" data-deal-monthly-row hidden>Monthly: <strong data-deal-monthly></strong></div>
-          </div>
-          <div class="result-card">
-            <div class="result-label">GTA Wholesale Sourcing</div>
-            <div class="result-value text-success" data-proxy-total>$31,722</div>
-            <div class="result-sub" data-proxy-monthly-row hidden>Monthly: <strong data-proxy-monthly></strong></div>
-          </div>
-          <div class="result-card highlight">
-            <div class="result-label">Your Total Savings</div>
-            <div class="result-value" data-savings>$6,330</div>
-            <div class="result-sub" data-savings-sub>Cash out-the-door price difference</div>
-          </div>
+    <div class="toggle-grid">
+      <div class="toggle-card">
+        <label>Payment Structure</label>
+        <div class="switch-group">
+          <button type="button" class="sw-btn active" id="btnCash" onclick="updatePaymentMode('cash')">Cash Purchase</button>
+          <button type="button" class="sw-btn" id="btnFinance" onclick="updatePaymentMode('finance')">Prime Finance (60 Mo)</button>
         </div>
       </div>
+      <div class="toggle-card">
+        <label>2-Year Extended Comprehensive Warranty</label>
+        <div class="switch-group">
+          <button type="button" class="sw-btn active" id="btnWarrNo" onclick="updateWarrantyMode(false)">No Warranty</button>
+          <button type="button" class="sw-btn" id="btnWarrYes" onclick="updateWarrantyMode(true)">Add 2-Yr Warranty</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="breakdown-wrapper">
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th class="col-item">Itemized Fee / Service</th>
+          <th class="col-dealer">Traditional GTA Dealer</th>
+          <th class="col-proxy">GTA Wholesale Sourcing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="section-heading"><td colspan="3">1. Vehicle Acquisition &amp; Logistics</td></tr>
+        <tr>
+          <td>Base Vehicle Price</td>
+          <td class="dealer-text" id="dealBasePrice">$21,995.00</td>
+          <td class="proxy-text" id="proxyBasePrice">$17,500.00 <span class="note">(Hammer Bid)</span></td>
+        </tr>
+        <tr>
+          <td>Auction Buyer &amp; Gate Fee</td>
+          <td class="included-text">Included in Retail Sticker</td>
+          <td class="proxy-text">+$485.00 <span class="note">(Pass-Through)</span></td>
+        </tr>
+        <tr>
+          <td>Post-Sale Inspection Guarantee (PSI)</td>
+          <td class="na-text">Not Disclosed</td>
+          <td class="proxy-text">+$175.00 <span class="note">(Wholesale Shield)</span></td>
+        </tr>
+        <tr>
+          <td>Dedicated Flatbed Hub Transport</td>
+          <td class="included-text">Included in Retail Sticker</td>
+          <td class="proxy-text">+$300.00 <span class="note">(Pass-Through)</span></td>
+        </tr>
+
+        <tr class="section-heading"><td colspan="3">2. Safety &amp; Mechanical Reconditioning</td></tr>
+        <tr>
+          <td>DriveON Safety Certification</td>
+          <td class="dealer-text">+$995.00 <span class="alert">(Billed "As-Is" in Ad)</span></td>
+          <td class="proxy-text">+$160.00 <span class="note">(Shop Rate)</span></td>
+        </tr>
+        <tr>
+          <td>Safety Parts &amp; Mechanical Wear Items (e.g. Brakes)</td>
+          <td class="included-text">Included in Retail Markup</td>
+          <td class="proxy-text">+$400.00 <span class="note">(Wholesale Parts/Labor)</span></td>
+        </tr>
+
+        <tr class="section-heading"><td colspan="3">3. Service Fees vs. Dealership Profit</td></tr>
+        <tr>
+          <td>Dealer Documentation / Admin Fee</td>
+          <td class="dealer-text">+$799.00</td>
+          <td class="proxy-zero">$0.00 <span class="note">(Eliminated)</span></td>
+        </tr>
+        <tr>
+          <td>Pre-Installed Anti-Theft / Security Etching</td>
+          <td class="dealer-text">+$499.00</td>
+          <td class="proxy-zero">$0.00 <span class="note">(Eliminated)</span></td>
+        </tr>
+        <tr>
+          <td>Direct Dealership Flat Sourcing Fee</td>
+          <td class="dealer-text">$0.00</td>
+          <td class="proxy-text font-bold">+$1,500.00 <span class="note">(Fixed Service Fee)</span></td>
+        </tr>
+
+        <tr class="section-heading" id="rowHeadingFinanceWarr"><td colspan="3">4. Financing Surcharges &amp; Warranty Options</td></tr>
+        <tr id="rowDealerFinanceFee" style="display:none;">
+          <td>Dealer Finance Origination Fee</td>
+          <td class="dealer-text">+$895.00</td>
+          <td class="proxy-zero">$0.00 <span class="note">(Eliminated)</span></td>
+        </tr>
+        <tr id="rowWarrantyFee" style="display:none;">
+          <td>2-Year Extended Comprehensive Warranty</td>
+          <td class="dealer-text">+$2,850.00 <span class="alert">(Retail Markup)</span></td>
+          <td class="proxy-text">+$1,250.00 <span class="note">(Wholesale Direct)</span></td>
+        </tr>
+        <tr id="rowPpsaFee" style="display:none;">
+          <td>PPSA Bank Lien Registration (60 Months)</td>
+          <td class="dealer-text">+$84.25</td>
+          <td class="proxy-text">+$84.25 <span class="note">(Pass-Through)</span></td>
+        </tr>
+
+        <tr class="section-heading"><td colspan="3">5. Taxes &amp; ServiceOntario Licensing</td></tr>
+        <tr>
+          <td>Ontario HST (13%)</td>
+          <td class="dealer-text" id="dealTax">$3,204.05</td>
+          <td class="proxy-text" id="proxyTax">$2,667.60</td>
+        </tr>
+        <tr>
+          <td>ServiceOntario Registration &amp; Plate Transfer</td>
+          <td class="dealer-text">+$59.00</td>
+          <td class="proxy-text">+$59.00</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td>Total Drive-Away Investment</td>
+          <td class="dealer-total" id="dealTotal">$27,396.05</td>
+          <td class="proxy-total" id="proxyTotal">$23,246.60</td>
+        </tr>
+        <tr class="monthly-row" id="rowMonthlyComparison" style="display:none;">
+          <td>Estimated 60-Month Payment</td>
+          <td class="dealer-monthly" id="dealMonthly">$570.82 / mo <span class="apr-note">(9.20% APR)</span></td>
+          <td class="proxy-monthly" id="proxyMonthly">$462.67 / mo <span class="apr-note">(7.20% APR)</span></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="savings-callout-card">
+    <div class="savings-info">
+      <span class="savings-label">YOUR ESTIMATED NET SAVINGS</span>
+      <h3 id="savingsSummaryDisplay">$4,149.45 CAD</h3>
+      <p id="savingsContextDisplay">Direct cash savings on your purchase by eliminating retail markups.</p>
+    </div>
+    <a href="#request" class="cta-action-btn">Source This Vehicle at Wholesale</a>
+  </div>
+</div>
+<style>
+  .wholesale-calculator-container { max-width: 920px; margin: 30px auto; background: #ffffff; border-radius: 14px; border: 1px solid #e2e8f0; padding: 28px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; box-shadow: 0 10px 30px rgba(11,27,61,0.06); }
+  .calc-top-header { text-align: center; margin-bottom: 24px; }
+  .tag-pill { background: #e0f2fe; color: #0284c7; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
+  .calc-top-header h2 { font-size: 24px; color: #0b1b3d; margin: 10px 0 6px 0; font-weight: 800; }
+  .calc-top-header p { font-size: 14px; color: #64748b; margin: 0; }
+
+  .calc-control-panel { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin-bottom: 24px; }
+  .slider-wrapper { margin-bottom: 20px; }
+  .slider-labels { display: flex; justify-content: space-between; font-size: 15px; color: #334155; margin-bottom: 8px; }
+  .slider-labels strong { color: #0b1b3d; font-size: 20px; font-weight: 800; }
+  .slider-wrapper input[type="range"] { width: 100%; height: 8px; border-radius: 4px; background: #cbd5e1; outline: none; -webkit-appearance: none; }
+  .slider-wrapper input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #c5a059; cursor: pointer; border: 2px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+  .slider-range-indicators { display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; margin-top: 4px; }
+
+  .toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .toggle-card label { display: block; font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 6px; }
+  .switch-group { display: flex; background: #e2e8f0; border-radius: 6px; padding: 3px; }
+  .sw-btn { flex: 1; border: none; background: transparent; padding: 8px 10px; font-size: 12px; font-weight: 700; cursor: pointer; border-radius: 5px; color: #475569; transition: all 0.2s; }
+  .sw-btn.active { background: #0b1b3d; color: #ffffff; }
+
+  .breakdown-wrapper { overflow-x: auto; margin-bottom: 24px; }
+  .cost-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+  .cost-table th { padding: 12px 14px; font-size: 13px; font-weight: 700; text-transform: uppercase; }
+  .col-item { width: 44%; background: #f1f5f9; color: #334155; }
+  .col-dealer { width: 28%; background: #fee2e2; color: #991b1b; }
+  .col-proxy { width: 28%; background: #dbeafe; color: #1e40af; }
+
+  .cost-table td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; color: #334155; }
+  .section-heading td { background: #f8fafc; font-weight: 800; font-size: 12px; color: #0b1b3d; text-transform: uppercase; letter-spacing: 0.05em; padding: 10px 14px; border-top: 2px solid #e2e8f0; }
+
+  .dealer-text { font-weight: 600; color: #991b1b; }
+  .proxy-text { font-weight: 600; color: #1e40af; }
+  .proxy-zero { font-weight: 600; color: #10b981; }
+  .included-text { color: #64748b; font-style: italic; font-size: 12px; }
+  .na-text { color: #94a3b8; }
+  .alert { color: #dc2626; font-size: 11px; font-weight: 700; }
+  .note { color: #64748b; font-size: 11px; font-weight: 400; }
+  .font-bold { font-weight: 800; }
+
+  .cost-table tfoot td { padding: 14px; border-top: 2px solid #cbd5e1; }
+  .total-row td { font-size: 15px; font-weight: 800; }
+  .dealer-total { color: #991b1b; font-size: 17px; }
+  .proxy-total { color: #1e40af; font-size: 18px; }
+  .monthly-row td { font-size: 14px; font-weight: 800; background: #fafafa; }
+  .dealer-monthly { color: #b91c1c; }
+  .proxy-monthly { color: #0369a1; }
+  .apr-note { font-size: 11px; font-weight: normal; color: #64748b; }
+
+  .savings-callout-card { display: flex; justify-content: space-between; align-items: center; background: #0b1b3d; color: #ffffff; border-radius: 10px; padding: 20px 24px; }
+  .savings-label { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; color: #c5a059; text-transform: uppercase; }
+  .savings-info h3 { margin: 4px 0; font-size: 26px; font-weight: 900; color: #ffffff; }
+  .savings-info p { margin: 0; font-size: 13px; color: #94a3b8; }
+  .cta-action-btn { background: #c5a059; color: #0b1b3d; padding: 12px 20px; font-size: 14px; font-weight: 800; text-decoration: none; border-radius: 6px; transition: background 0.2s; white-space: nowrap; }
+  .cta-action-btn:hover { background: #d4af37; }
+
+  @media (max-width: 680px) {
+    .toggle-grid { grid-template-columns: 1fr; }
+    .savings-callout-card { flex-direction: column; text-align: center; gap: 14px; }
+    .cost-table th, .cost-table td { padding: 8px 6px; font-size: 11px; }
+  }
+</style>
+<script>
+  let isFinanceMode = false;
+  let isWarrantyActive = false;
+
+  const sliderElem = document.getElementById('inputHammer');
+  sliderElem.addEventListener('input', runLiveCalculation);
+
+  function updatePaymentMode(mode) {
+    isFinanceMode = (mode === 'finance');
+    document.getElementById('btnCash').classList.toggle('active', !isFinanceMode);
+    document.getElementById('btnFinance').classList.toggle('active', isFinanceMode);
+    runLiveCalculation();
+  }
+
+  function updateWarrantyMode(state) {
+    isWarrantyActive = state;
+    document.getElementById('btnWarrNo').classList.toggle('active', !isWarrantyActive);
+    document.getElementById('btnWarrYes').classList.toggle('active', isWarrantyActive);
+    runLiveCalculation();
+  }
+
+  function calculatePMT(principal, annualRate, months) {
+    let r = (annualRate / 100) / 12;
+    return principal * (r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
+  }
+
+  function runLiveCalculation() {
+    let hammer = parseFloat(sliderElem.value);
+    document.getElementById('displayHammer').innerText = '$' + hammer.toLocaleString() + ' CAD';
+
+    let dealBase = Math.round(hammer * 1.257);
+    let dealSafety = 995.00;
+    let dealAdmin = 799.00;
+    let dealEtch = 499.00;
+    let dealFinanceFee = isFinanceMode ? 895.00 : 0.00;
+    let dealWarranty = isWarrantyActive ? 2850.00 : 0.00;
+    let dealPPSA = isFinanceMode ? 84.25 : 0.00;
+
+    let dealTaxable = dealBase + dealSafety + dealAdmin + dealEtch + dealFinanceFee + dealWarranty;
+    let dealTax = (dealTaxable * 0.13) + 59.00 + dealPPSA;
+    let dealFinal = dealTaxable + dealTax;
+
+    let proxyBuyerFee = 485.00;
+    let proxyPSI = 175.00;
+    let proxyTransport = 300.00;
+    let proxySafetyInspection = 160.00;
+    let proxySafetyParts = 400.00;
+    let proxySourcingFee = 1500.00;
+    let proxyWarranty = isWarrantyActive ? 1250.00 : 0.00;
+    let proxyPPSA = isFinanceMode ? 84.25 : 0.00;
+
+    let proxyTaxable = hammer + proxyBuyerFee + proxyPSI + proxyTransport + proxySafetyInspection + proxySafetyParts + proxySourcingFee + proxyWarranty;
+    let proxyTax = (proxyTaxable * 0.13) + 59.00 + proxyPPSA;
+    let proxyFinal = proxyTaxable + proxyTax;
+
+    document.getElementById('dealBasePrice').innerText = '$' + dealBase.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('proxyBasePrice').innerHTML = '$' + hammer.toLocaleString('en-CA', {minimumFractionDigits: 2}) + ' <span class="note">(Hammer Bid)</span>';
+
+    document.getElementById('dealTax').innerText = '$' + dealTax.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('proxyTax').innerText = '$' + proxyTax.toLocaleString('en-CA', {minimumFractionDigits: 2});
+
+    document.getElementById('dealTotal').innerText = '$' + dealFinal.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('proxyTotal').innerText = '$' + proxyFinal.toLocaleString('en-CA', {minimumFractionDigits: 2});
+
+    document.getElementById('rowDealerFinanceFee').style.display = isFinanceMode ? 'table-row' : 'none';
+    document.getElementById('rowPpsaFee').style.display = isFinanceMode ? 'table-row' : 'none';
+    document.getElementById('rowWarrantyFee').style.display = isWarrantyActive ? 'table-row' : 'none';
+    document.getElementById('rowHeadingFinanceWarr').style.display = (isFinanceMode || isWarrantyActive) ? 'table-row' : 'none';
+    document.getElementById('rowMonthlyComparison').style.display = isFinanceMode ? 'table-row' : 'none';
+
+    if (isFinanceMode) {
+      let dealMo = calculatePMT(dealFinal, 9.20, 60);
+      let proxyMo = calculatePMT(proxyFinal, 7.20, 60);
+      document.getElementById('dealMonthly').innerHTML = '$' + dealMo.toFixed(2) + ' / mo <span class="apr-note">(9.20% APR)</span>';
+      document.getElementById('proxyMonthly').innerHTML = '$' + proxyMo.toFixed(2) + ' / mo <span class="apr-note">(7.20% APR)</span>';
+
+      let totalLoanSavings = (dealMo * 60) - (proxyMo * 60);
+      document.getElementById('savingsSummaryDisplay').innerText = '$' + totalLoanSavings.toLocaleString('en-CA', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' CAD';
+      document.getElementById('savingsContextDisplay').innerText = 'Total 5-year savings on lower vehicle price, uninflated bank rates, and wholesale warranty.';
+    } else {
+      let upfrontSavings = dealFinal - proxyFinal;
+      document.getElementById('savingsSummaryDisplay').innerText = '$' + upfrontSavings.toLocaleString('en-CA', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' CAD';
+      document.getElementById('savingsContextDisplay').innerText = 'Direct out-of-pocket cash saved by eliminating retail dealership markups.';
+    }
+  }
+
+  runLiveCalculation();
+</script>
     </div>
   </section>
 
