@@ -13,6 +13,7 @@
   --slate-light: #94A3B8;
   --bg-light: #F8FAFC;
   --white: #FFFFFF;
+  --bg-body: #EEF2F8;
   --text: #0F172A;
   --success: #10B981;
   --danger: #DC2626;
@@ -46,7 +47,7 @@ body {
   margin: 0;
   font-family: var(--font);
   color: var(--text);
-  background: var(--white);
+  background: var(--bg-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
