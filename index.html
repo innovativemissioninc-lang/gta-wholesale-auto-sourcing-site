@@ -321,9 +321,9 @@
             <td class="text-proxy" id="proxyBaseDisplay">$18,000.00 <span class="dim-tag">(Auction Bid)</span></td>
           </tr>
           <tr>
-            <td>Auction Buyer & Yard Gate Fee</td>
+            <td>Auction Buyer & Platform Fee (Tiered Pass-Through Based on Hammer Price)</td>
             <td class="dim-note">Hidden in Retail Price</td>
-            <td class="text-proxy">+$485.00 <span class="dim-tag">(Pass-Through)</span></td>
+            <td class="text-proxy" id="dealAuctionFeeDisplay">+$485.00 <span class="dim-tag">(Pass-Through)</span></td>
           </tr>
           <tr>
             <td>PSI Mechanical Arbitration Guarantee</td>
@@ -571,7 +571,7 @@
           </div>
 
           <div class="rcpt-row"><span>Target Hammer Bid:</span><strong id="rcptHammer">$18,000.00</strong></div>
-          <div class="rcpt-row"><span>Auction Buyer & Gate Fee:</span><span>+$485.00</span></div>
+          <div class="rcpt-row"><span>Auction Buyer & Platform Fee (Tiered Pass-Through Based on Hammer Price):</span><span id="rcptAuctionFee">+$485.00</span></div>
           <div class="rcpt-row"><span>Post-Sale Inspection (PSI):</span><span>+$175.00</span></div>
           <div class="rcpt-row"><span>Transport to Etobicoke Hub:</span><span>+$300.00</span></div>
           <div class="rcpt-row"><span>DriveON Safety Inspection:</span><span>+$160.00</span></div>
@@ -747,6 +747,14 @@
     runFullCalculator();
   }
 
+  function getAuctionBuyFee(hammerPrice) {
+    if (hammerPrice < 10000) return 350.00;
+    if (hammerPrice < 20000) return 485.00;
+    if (hammerPrice < 30000) return 595.00;
+    if (hammerPrice < 45000) return 725.00;
+    return 850.00;
+  }
+
   function calcPMT(principal, annualApr, months) {
     let r = (annualApr / 100) / 12;
     return principal * (r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
@@ -769,7 +777,7 @@
     let dealTax = (dealTaxable * 0.13) + 59.00 + dealPPSA;
     let dealTotal = dealTaxable + dealTax;
 
-    let proxyBuyerFee = 485.00;
+    let proxyBuyerFee = getAuctionBuyFee(hammer);
     let proxyPSI = 175.00;
     let proxyTransport = 300.00;
     let proxySafetyInsp = 160.00;
@@ -785,6 +793,8 @@
 
     document.getElementById('retailBaseDisplay').innerText = '$' + dealBase.toLocaleString('en-CA', {minimumFractionDigits: 2});
     document.getElementById('proxyBaseDisplay').innerHTML = '$' + hammer.toLocaleString('en-CA', {minimumFractionDigits: 2}) + ' <span class="dim-tag">(Auction Bid)</span>';
+
+    document.getElementById('dealAuctionFeeDisplay').innerHTML = '+$' + proxyBuyerFee.toLocaleString('en-CA', {minimumFractionDigits: 2}) + ' <span class="dim-tag">(Pass-Through)</span>';
 
     document.getElementById('retailTaxDisplay').innerText = '$' + dealTax.toLocaleString('en-CA', {minimumFractionDigits: 2});
     document.getElementById('proxyTaxDisplay').innerText = '$' + proxyTax.toLocaleString('en-CA', {minimumFractionDigits: 2});
@@ -832,7 +842,7 @@
 
   function syncPortalOrder() {
     let hammer = parseFloat(document.getElementById('orderHammerInput').value) || 0;
-    let buyerFee = 485.00;
+    let buyerFee = getAuctionBuyFee(hammer);
     let psi = 175.00;
     let transport = 300.00;
     let safetyInsp = 160.00;
@@ -854,6 +864,7 @@
     let total = taxable + hst + mto + ppsaCost;
 
     document.getElementById('rcptHammer').innerText = '$' + hammer.toLocaleString('en-CA', {minimumFractionDigits: 2});
+    document.getElementById('rcptAuctionFee').innerText = '+$' + buyerFee.toLocaleString('en-CA', {minimumFractionDigits: 2});
     document.getElementById('rcptTierLabel').innerText = portalTierTitle;
     document.getElementById('rcptTierFee').innerText = '+$' + portalTierFee.toLocaleString('en-CA', {minimumFractionDigits: 2});
     document.getElementById('rcptTax').innerText = '$' + hst.toLocaleString('en-CA', {minimumFractionDigits: 2});
